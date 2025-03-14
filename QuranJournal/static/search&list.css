@@ -1,0 +1,55 @@
+body {
+  text-align: center; 
+  font-family: Arial, sans-serif;
+  background-color: #008CBA;
+}
+
+header {
+  background-color: #679ef1;
+  padding: 15px;
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+}
+
+nav button {
+  background-color: #07059b;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 300px; 
+}
+
+nav button:hover {
+  transform: skew(-10deg, -10deg);
+  background-color: #cbece9;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center; 
+  margin-top: 20px; 
+}
+
+#search {
+  width: 300px; 
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #008CBA;
+  border-radius: 5px;
+}
+
+#ayat-list {
+  font-size: 30px;
+  text-align: right; /* Tambah baris ini untuk alihkan ke kiri */
+  margin: 20px auto; /* Biar tengah tapi teks ke kiri */
+  width: 80%; /* Optional: Untuk elak lebar penuh */
+  color: black; /* Optional: bagi cerah atas background biru */
+}

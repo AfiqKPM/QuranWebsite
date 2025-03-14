@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'search&list.css' %}">
+    <title>Surah</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'search_list' %}"><button>Back</button></a>
+        </nav>
+    </header>
+
+    <h1 id="surah-title">Loading...</h1>
+    <ul id="ayat-list"></ul>
+    
+    <script>
+        const surahNumber = "{{ surah_number }}"; // Inject dari Django
+    
+        fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/editions/ar.alafasy,en.asad`)
+            .then(response => response.json())
+            .then(data => {
+                const arabicSurahName = data.data[0].englishName;
+                const arabicSurahNameArabic = data.data[0].name;
+                document.getElementById("surah-title").innerText = `${arabicSurahName} (${arabicSurahNameArabic})`;
+    
+                const arabicAyat = data.data[0].ayahs;
+                const translationAyat = data.data[1].ayahs;
+    
+                let ayatList = document.getElementById("ayat-list");
+    
+                arabicAyat.forEach((ayat, index) => {
+                    let listItem = document.createElement("li");
+                    listItem.innerHTML = `
+                        <p><strong>Verse ${ayat.numberInSurah}:</strong></p>
+                        <p><strong>${ayat.text}</strong></p>
+                        <p><em>${translationAyat[index].text}</em></p>
+                        <hr>
+                    `;
+                    ayatList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error("Error fetching surah:", error);
+                document.getElementById("surah-title").innerText = "Surah not found or error loading data.";
+            });
+    </script>
+    
+    
+</body>
+</html>

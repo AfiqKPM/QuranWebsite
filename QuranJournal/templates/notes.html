@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notes for {{ surah_name }}</title>
+    <link rel="stylesheet" href="{% static 'notes.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'search_list' %}"><button>Back</button></a>
+        </nav>
+    </header>
+
+    <h1>Notes for: {{ surah_name }}</h1>
+
+    <!-- ✅ Form Read file -->
+    <form method="get" id="readForm">
+        <label>File Name:</label>
+        <input type="text" name="surah_name" id="file_name_input" value="{{ surah_name }}"><br><br>
+        <button type="button" onclick="readFile()">Read</button>
+    </form>
+
+    <hr>
+
+    <!-- ✅ CREATE or UPDATE Form -->
+    <form method="post" action="{% url 'file_save' surah_name %}">
+        {% csrf_token %}
+        <label>Ayat Completed:</label>
+        <input type="text" name="ayat_completed" value="{{ ayat_completed|default:'' }}"><br><br>
+
+        <label>Notes:</label><br>
+        <textarea name="notes" rows="10" cols="50">{{ notes|default:'' }}</textarea><br><br>
+
+        <button type="submit">Save/Update</button>
+    </form>
+
+    <!-- ✅ DELETE Form -->
+    <form method="post" action="{% url 'file_delete' surah_name %}" onsubmit="return confirm('Are you sure to delete?');">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+
+    <!-- ✅ Script Read -->
+    <script>
+      function readFile() {
+          var surahName = document.getElementById('file_name_input').value;
+          if (surahName) {
+              window.location.href = '/muslim/file/detail/' + surahName + '/'; // ❗MESTI sama dengan URL pattern
+          } else {
+              alert('Please enter a surah name!');
+          }
+      }
+      </script>
+      
+</body>
+</html>

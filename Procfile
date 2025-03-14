@@ -1,0 +1,1 @@
+web : gunicornQuranJournal.wsgi --log-file -

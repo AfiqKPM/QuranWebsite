@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Homepage</title>
+    <link rel="stylesheet" href="{% static 'homepage.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'search_list' %}"><button>Search & List</button></a>
+            <a href="{% url 'notes' 'Al-Fatihah' %}"><button>Notes</button></a> <!-- contoh -->
+            <a href="{% url 'waktu_solat' %}"><button>Lihat Waktu Solat</button></a>
+        </nav>
+    </header>
+    <div id="o">
+        <h1>WELCOME TO QURAN JOURNAL</h1>
+    </div>
+    <img src="{% static 'Learn-Quran.png' %}" alt="">
+</body>
+</html>
